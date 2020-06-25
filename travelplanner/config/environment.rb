@@ -10,4 +10,4 @@ ActiveRecord::Base.establish_connection(
 )
 
 require './app/controllers/application_controller.rb'
-require_all 'app/models'
+require_all 'app'
