@@ -1,5 +1,5 @@
 class PersonsController < ApplicationController
-
+#new
     get "/persons/signup" do
      @plans = Plan.all
      erb :'/persons/new'
@@ -15,12 +15,12 @@ class PersonsController < ApplicationController
       end
       redirect "/owners/#{@person.id}"
     end
-
+#read
     get "/persons/account" do
       @person = Person.find(params[:id])
       erb :'/persons/show'
     end
-
+#update
     get "/persons/:id/edit" do
       @person = Person.find(params[:id])
       @plans = Plan.all
@@ -38,8 +38,28 @@ class PersonsController < ApplicationController
       redirect "/persons/#{@person.id}"
     end
 
+    get "/other/failure" do
+        erb :failure
+      end
+
+    get "/logout" do
+      session.clear
+      redirect "/"
+    end
+#destroy 
+    helpers do
+      def logged_in?
+        !!session[:user_id]
+      end
+
+      def current_user
+        Person.find(session[:user_id])
+      end
+    end
 
     delete "/persons/:id" do
+      Person.destroy(params[:id])
+      redirect to "/plans/account"
     end
 
 end
