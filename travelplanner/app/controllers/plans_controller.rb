@@ -1,7 +1,7 @@
 class PlansController < ApplicationController
 #create
     get "/plans" do
-      erb :index
+      erb :'/plans/new'
     end
 #read
     get "/plans/account" do

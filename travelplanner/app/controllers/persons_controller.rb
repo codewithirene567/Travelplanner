@@ -1,12 +1,12 @@
 class PersonsController < ApplicationController
 #new
-    get "/persons/signup" do
+    get "/signup" do
      @plans = Plan.all
-     erb :'/persons/new'
+     erb :'/persons/signup'
     end
 
 
-    post "/persons/signup" do
+    post "/signup" do
       @person = Person.create(params[:person])
       if !params["plan"]["plan_id"].empty?
         #wanted to see if this format was correct in this line?
@@ -22,12 +22,29 @@ class PersonsController < ApplicationController
 #  session[:owner_id] = @person.id
 # redirect to '/person/account'
       end
-      redirect "/persons/#{@person.id}"
+      redirect "/plans/new"
     end
 #read
+    get "/login" do
+    
+      @person = Person.find(params[:id])
+
+      erb :'/persons/login'
+    end
+
+    post "/login" do
+      @person = Person.find(username: params[:id])
+      if @person && @person.authenticate(params[:password])
+      session[:person_id] = @person.id
+      redirect to "/plans/account"
+      else
+      redirect to "/other/failure"
+    end
+    end
+
     get "/persons/account" do
       @person = Person.find(params[:id])
-      erb :'/persons/show'
+      erb :'/plans/account'
     end
 #update
     get "/persons/:id/edit" do
