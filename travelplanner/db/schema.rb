@@ -13,18 +13,18 @@
 
 ActiveRecord::Schema.define(version: 20200624215106) do
 
-  create_table "persons", force: :cascade do |t|
-    t.string "name"
-    t.string "username"
-    t.string "password_digest"
-  end
-
   create_table "plans", force: :cascade do |t|
-    t.integer "plan_id"
+    t.string  "name"
     t.string  "destination"
     t.string  "mode_of_transport"
     t.date    "date"
-    t.integer "person_id"
+    t.integer "user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "username"
+    t.string "password_digest"
   end
 
 end

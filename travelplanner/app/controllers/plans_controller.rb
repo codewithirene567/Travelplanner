@@ -20,7 +20,7 @@ class PlansController < ApplicationController
 
     patch "/plans/:id" do
       @plan = Plan.find(params[:id])
-      @plan.update(params[:person][:plan])
+      @plan.update(params[:user][:plan])
    redirect to "/plan/#{ @plan.id }"
     end
 #delete

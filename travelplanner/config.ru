@@ -5,5 +5,5 @@ if ActiveRecord::Migrator.needs_migration?
 end
 
 run ApplicationController
-use PersonsController
+use UsersController
 use PlansController

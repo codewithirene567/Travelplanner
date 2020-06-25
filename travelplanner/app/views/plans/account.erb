@@ -1,9 +1,9 @@
 <% if Helpers.is_logged_in?(session) %>
-<h1> Okay <%=@person.username %>, here are your current plans on the dashboard</h1>
-<p>You have <%=@person.plans.size %> for this month.</p><br>
-<p>On <%=@person.plans.mode_of_transport.size %> modes of transport including</p><br>
+<h1> Okay <%=@user.username %>, here are your current plans on the dashboard</h1>
+<p>You have <%=@user.plans.size %> for this month.</p><br>
+<p>On <%=@user.plans.mode_of_transport.size %> modes of transport including</p><br>
 
-<%=@person.plans.mode_of_transport %> on <%=@person.plans.date %> to <%=@person.plan.destination %><br>
+<%=@user.plans.mode_of_transport %> on <%=@user.plans.date %> to <%=@user.plan.destination %><br>
 
 <p><a href="plans/new">Click here to create a new plan</a></p>
 <p><a href="plans/delete">Click here to cancel(delete) one of your plans</a></p>
