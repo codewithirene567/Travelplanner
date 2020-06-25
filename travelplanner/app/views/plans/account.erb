@@ -1,3 +1,4 @@
+<% if Helpers.is_logged_in?(session) %>
 <h1> Okay <%=@person.username %>, here are your current plans on the dashboard</h1>
 <p>You have <%=@person.plans.size %> for this month.</p><br>
 <p>On <%=@person.plans.mode_of_transport.size %> modes of transport including</p><br>
@@ -9,3 +10,4 @@
 <p><a href="plans/update">Click here to update one of your plans</a></p>
 
 <p><a href="/logout">Log Out</a></p>
+<% end %>

@@ -1,13 +1,13 @@
 class PlansController < ApplicationController
-
+#create
     get "/plans" do
       erb :index
     end
-
+#read
     get "/plans/account" do
       erb :'/plans/account'
     end
-
+#update
     get "/plans/:id/edit" do
       @plans = Plan.find(params[:id])
       erb :'/plans/edit'
@@ -23,7 +23,7 @@ class PlansController < ApplicationController
       @plan.update(params[:person][:plan])
    redirect to "/plan/#{ @plan.id }"
     end
-
+#delete
     delete "/plans/:id" do
       Plan.destroy(params[:id])
       redirect to "/plans/account"

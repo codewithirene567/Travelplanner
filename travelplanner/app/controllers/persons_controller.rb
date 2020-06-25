@@ -5,15 +5,24 @@ class PersonsController < ApplicationController
      erb :'/persons/new'
     end
 
+
     post "/persons/signup" do
       @person = Person.create(params[:person])
       if !params["plan"]["plan_id"].empty?
+        #wanted to see if this format was correct in this line?
+        #doing 2 diffferent actions in one route, you are creating and signing up a person
+        #but you are also creating a plan
+        #both of those created actions need to have checks to make sure they were filled in correctly
+        #suggested to move the following 3 lines into the plan class
         @person.plans << Plan.create(plan_id: params["plan"]["plan_id"],
         destination: params["destination"], mode_of_transport: params["mode_of_transport"],
-        date: params["date"], person_id: params["person_id"])
-
+        date: params["date"], person_id: @person.id)
+#if there is a user_id then thery are logged in
+#if@person!=nil && @person.password
+#  session[:owner_id] = @person.id
+# redirect to '/person/account'
       end
-      redirect "/owners/#{@person.id}"
+      redirect "/persons/#{@person.id}"
     end
 #read
     get "/persons/account" do
@@ -46,7 +55,7 @@ class PersonsController < ApplicationController
       session.clear
       redirect "/"
     end
-#destroy 
+#destroy
     helpers do
       def logged_in?
         !!session[:user_id]
