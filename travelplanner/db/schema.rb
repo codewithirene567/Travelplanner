@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20200624215106) do
   end
 
   create_table "plans", force: :cascade do |t|
+    t.integer "plan_id"
     t.string  "destination"
     t.string  "mode_of_transport"
     t.date    "date"

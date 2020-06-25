@@ -9,4 +9,8 @@ class ApplicationController < Sinatra::Base
     set :session_secret, "to_be_replaced"#switch back to this after local ENV['SESSION_SECRET']
   end
 
+  get '/' do
+    erb :'/other/layout'
+  end
+
 end

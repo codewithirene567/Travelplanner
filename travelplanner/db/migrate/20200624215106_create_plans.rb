@@ -1,6 +1,7 @@
 class CreatePlans < ActiveRecord::Migration
   def change
     create_table :plans do |t|
+      t.integer :plan_id
       t.string :destination
       t.string :mode_of_transport
       t.date :date
