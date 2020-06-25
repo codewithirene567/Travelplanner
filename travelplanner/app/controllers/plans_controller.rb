@@ -8,6 +8,7 @@ class PlansController < ApplicationController
     end
 
     post "/plans" do
+      CREATE THE PLANS
     end
 
     get "/plans/:id" do

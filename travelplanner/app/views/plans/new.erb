@@ -1,0 +1,38 @@
+<p>Choose one of your plans or make a new one here.</p>
+
+<form action="/plans/<%= @plan.id %>" method="POST">
+<h3>Your Plan Details</h3>
+<% @plans.each do |plan| %>
+  <input type="checkbox" name="person[plan_ids][]" id="<%= plan.id %>" value="<%= plan.id %>" <%='checked' if @person.plans.include?(plan) %>><%= plan.plan_id %></input><br>
+<% end %>
+<br>
+
+<h3>Make a New Plan</h3>
+<label>Plan Number: </label>
+<input type="text" name="plan[plan_id]" id="plan_id"></input>
+<br><br>
+<h3>Existing Plans</h3>
+<% @plans.each do |plan| %>
+  <input type="checkbox" name="person[plan_ids][]" id="<%= plan.id %>" value="<%= plan.id %>"><%= plan.name %><br>
+<% end %>
+<br>
+
+<h3>New Plan</h3>
+<label>Give us a number to identify your plan: </label>
+<input type="integer" name="plan[plan_id]" id="plan_id"></input>
+<br><br>
+
+<label>Where are you going? </label>
+<input type="text" name="plan[destination]" id="destination"></input>
+<br><br>
+
+<label>How are you going to get there? </label>
+<input type="text" name="plan[mode_of_transport]" id="mode_of_transport"></input>
+<br><br>
+
+<label>What day? </label>
+<input type="text" name="plan[date]" id="date"></input>
+<br><br>
+
+<input type="submit" value="Make Plan">
+</form>

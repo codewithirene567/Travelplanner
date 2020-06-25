@@ -1,16 +1,11 @@
 class PersonsController < ApplicationController
 
-    get "/persons" do
-      @persons = Person.all
-      erb :'/persons/index'
-    end
-
-    get "/persons/new" do
+    get "/persons/signup" do
      @plans = Plan.all
      erb :'/persons/new'
     end
 
-    post "/persons" do
+    post "/persons/signup" do
       @person = Person.create(params[:person])
       if !params["plan"]["plan_id"].empty?
         @person.plans << Plan.create(plan_id: params["plan"]["plan_id"],
@@ -21,7 +16,7 @@ class PersonsController < ApplicationController
       redirect "/owners/#{@person.id}"
     end
 
-    get "/persons/:id" do
+    get "/persons/account" do
       @person = Person.find(params[:id])
       erb :'/persons/show'
     end

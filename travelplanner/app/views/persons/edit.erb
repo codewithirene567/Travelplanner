@@ -1,4 +1,4 @@
-<h1>Update Your Profile and Plans Here</h1>
+<h1>Change your name or Update Your Plans</h1>
 
 <h2>Edits for <%= @person.name %></h2>
 
@@ -6,6 +6,7 @@
     <input id="hidden" type="hidden" name="_method" value="patch">
     <label>Change Your Name:</label>
     <input type="text" name="person[name]" value="<%= @person.name %>">
+
 
     <br>
     <p>Choose one of your plans or make a new one here.</p>
@@ -15,12 +16,12 @@
     <% @plans.each do |plan| %>
       <input type="checkbox" name="person[plan_ids][]" id="<%= plan.id %>" value="<%= plan.id %>" <%='checked' if @person.plans.include?(plan) %>><%= plan.plan_id %></input><br>
     <% end %>
-    <br>
+  </br>
 
     <h3>Make a New Plan</h3>
     <label>Plan Number: </label>
     <input type="text" name="plan[plan_id]" id="plan_id"></input>
-    <br><br>
+    <br>
 
     <input type="submit" value="Make Plan">
   </form>
