@@ -12,17 +12,25 @@ class PlansController < ApplicationController
       erb :'/plans/new'
     end
 
-    post '/plans' do
-   @user = User.new
-   @plan = Plan.find_by id:params["plan_id"]
+    post '/plans' do #creates a new travel plan and posts it so they can see it
+   @plan = Plan.create(name: params[:name],
+   destination: params[:destination], mode_of_transport: params[:mode_of_transport],
+   date: params[:date])
+#is this formatted correctly logic wise in the if statement
+    if !params[:username] == "" || params[:password] == ""
 
-    if !params["user"]["name"].empty?
-      @plan.user = User.create(name: params["user"]["name"])
+      @plan.user = User.create(name: params[:name],
+      destination: params[:destination], mode_of_transport: params[:mode_of_transport],
+     date: params[:date])
+
+    #else
+    #  redirect "/other/faliure"
     end
 
     @plan.save
-
-    redirect to "plans/#{@plan.id}"
+#original
+    #redirect to "/plans/:id"
+    redirect to "/plans/#{@plan.id}"
   end
 
     #if !params["plan"]["plan_id"].empty?
@@ -37,12 +45,11 @@ class PlansController < ApplicationController
     #end
 #read
     get "/plans/:id" do
-
-      @user = User.new
-      @plan = Plan.find_by id:params["plan_id"]
-
-     #@username = (params[:id][:username])
-      erb :'plans/new'
+      #@user = User.new
+      @plan = Plan.find(params[:id])
+#WHEN I type in the number 1 or 2 after the /plans/1 like this then it takes me to the
+#show page aka plans/show
+      erb :'/plans/show'
     end
     #end
 #update
@@ -62,9 +69,14 @@ class PlansController < ApplicationController
   # redirect to "/plan/#{ @plan.id }"
   #  end
 #delete
-  #  delete "/plans/:id" do
-  #    Plan.destroy(params[:id])
-  #    redirect to "/plans/account"
-  #  end
+
+get "/other/failure" do
+    erb :'failure'
+  end
+
+    delete "/plans/:id" do
+      Plan.destroy(params[:id])
+      redirect to "/plans/account"
+    end
 
 end

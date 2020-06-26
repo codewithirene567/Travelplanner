@@ -12,7 +12,7 @@ class UsersController < ApplicationController
           else
             User.create(name: params[:name], username: params[:username], password: params[:password])
              #binding.pry
-            redirect '/login'
+            redirect '/plans/new'
           end
         end
 
@@ -35,27 +35,27 @@ class UsersController < ApplicationController
 
      #@username = User.find(username: params[:id][:username])
 
-      erb :'/plans/account'
+      erb :'/users/login'
 
     end
 
-    get '/users/:id' do
+    get '/users/login' do
       @user = User.find_by(id: params[:id])
       if @user
-        erb :"/plans/account"
+        erb :"/plans/show"
 #ask tomorrow about how to define instance variable for the username
       else
         redirect '/'
       end
     end
 
-    post "/login" do
+    post "/users/login" do
      @user = User.create(username: params[:id])
 
      @username = User.create(username: params[:id][:username])
      if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-     redirect to "/plans/account"
+     redirect to "/users/login"
       else
       redirect to "/other/failure"
     end
@@ -83,14 +83,12 @@ class UsersController < ApplicationController
   #    redirect "/users/#{@user.id}"
   #  end
 
-  #  get "/other/failure" do
-    #    erb :failure
-    #  end
 
-  #  get "/logout" do
-  #    session.clear
-  #    redirect "/"
-  #  end
+
+    get "/logout" do
+      session.clear
+      redirect "/"
+    end
 #destroy
     #helpers do
     #  def logged_in?
