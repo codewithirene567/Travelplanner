@@ -13,4 +13,15 @@ class ApplicationController < Sinatra::Base
     erb :'/users/index'
   end
 
+  helpers do
+    def logged_in?
+      !!session[:id]
+    end
+
+    def current_user
+      #User.find(session[:id])
+      User.find(session[:user_id])
+    end
+  end
+
 end

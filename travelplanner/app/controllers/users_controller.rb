@@ -7,11 +7,12 @@ class UsersController < ApplicationController
 
 
     post "/signup" do
+
       if params[:username] == "" || params[:password] == ""
             redirect '/failure'
           else
-            User.create(name: params[:name], username: params[:username], password: params[:password])
-             #binding.pry
+            @user = User.create(name: params[:name], username: params[:username], password: params[:password])
+              session[:user_id] = @user.id #this line lets them logged in
             redirect '/plans/new'
           end
         end
@@ -29,15 +30,16 @@ class UsersController < ApplicationController
     #redirect "/account"
     #end
 #read
-    get "/login" do
+  #get "/login" do
+  #  if !logged in?
+  #    erb :'users/login'
+  #  else
+  #    redirect to '/'
+  #  end
+#  end
+  #    erb :'/users/login'
 
-     #@user = User.find(params[:id])
-
-     #@username = User.find(username: params[:id][:username])
-
-      erb :'/users/login'
-
-    end
+  #  end
 
     get '/users/login' do
       @user = User.find_by(id: params[:id])
@@ -50,17 +52,18 @@ class UsersController < ApplicationController
     end
 
     post "/users/login" do
-     @user = User.create(username: params[:id])
-
-     @username = User.create(username: params[:id][:username])
+  #we want to find the user based on their paramas
      if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-     redirect to "/users/login"
+     redirect to "/users/#{@user.id}"
       else
-      redirect to "/other/failure"
+      redirect to "/failure"
     end
     end
 
+get "/user/:id" do
+  erb :'/users/show'
+end
   #  get "/account" do
   #    @user = User.find(params[:id])
   #    erb :'/plans/account'
@@ -90,14 +93,7 @@ class UsersController < ApplicationController
       redirect "/"
     end
 #destroy
-    #helpers do
-    #  def logged_in?
-    #    !!session[:user_id]
-    #  end
 
-    #  def current_user
-    #    User.find(session[:user_id])
-    #  end
 
 
   #  delete "/users/:id" do

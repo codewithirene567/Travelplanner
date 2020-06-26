@@ -18,13 +18,17 @@ class PlansController < ApplicationController
    date: params[:date])
 #is this formatted correctly logic wise in the if statement
     if !params[:username] == "" || params[:password] == ""
-
+#is this part necessary to have?
       @plan.user = User.create(name: params[:name],
       destination: params[:destination], mode_of_transport: params[:mode_of_transport],
      date: params[:date])
 
     #else
-    #  redirect "/other/faliure"
+      #redirect "/failure"
+      #redirect_if_not_logged_in
+      #if !Plans.valid_params?(params)
+      #  redirect to /plans/new
+      #  current_user.
     end
 
     @plan.save
@@ -45,9 +49,8 @@ class PlansController < ApplicationController
     get "/plans/:id" do
       #@user = User.new
       @plan = Plan.find(params[:id])
-#WHEN I type in the number 1 or 2 after the /plans/1 like this then it takes me to the
-#show page aka plans/show
-      erb :'/plans/show'
+
+      erb :'/users/show'
     end
     #end
 #update
@@ -74,7 +77,7 @@ get "/failure" do
 
     delete "/plans/:id" do
       Plan.destroy(params[:id])
-      redirect to "/plans/account"
+      redirect to "/users/show"
     end
 
 end
