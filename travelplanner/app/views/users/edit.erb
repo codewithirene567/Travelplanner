@@ -17,11 +17,5 @@
       <input type="checkbox" name="user[plan_ids][]" id="<%= plan.id %>" value="<%= plan.id %>" <%='checked' if @user.plans.include?(plan) %>><%= plan.plan_id %></input><br>
     <% end %>
   </br>
-
-    <h3>Make a New Plan</h3>
-    <label>Plan Number: </label>
-    <input type="text" name="plan[plan_id]" id="plan_id"></input>
-    <br>
-
-    <input type="submit" value="Make Plan">
-  </form>
+</form>
+<p><a href="/plans/new">You can always click here to create a new plan</a></p>

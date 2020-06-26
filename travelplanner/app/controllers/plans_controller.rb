@@ -28,8 +28,6 @@ class PlansController < ApplicationController
     end
 
     @plan.save
-#original
-    #redirect to "/plans/:id"
     redirect to "/plans/#{@plan.id}"
   end
 
@@ -70,8 +68,8 @@ class PlansController < ApplicationController
   #  end
 #delete
 
-get "/other/failure" do
-    erb :'failure'
+get "/failure" do
+    erb :'/failure'
   end
 
     delete "/plans/:id" do

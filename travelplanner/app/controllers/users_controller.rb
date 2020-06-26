@@ -43,7 +43,7 @@ class UsersController < ApplicationController
       @user = User.find_by(id: params[:id])
       if @user
         erb :"/plans/show"
-#ask tomorrow about how to define instance variable for the username
+
       else
         redirect '/'
       end
