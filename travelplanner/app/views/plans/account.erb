@@ -1,13 +1,6 @@
-<% if Helpers.is_logged_in?(session) %>
-<h1> Okay <%=@user.username %>, here are your current plans on the dashboard</h1>
-<p>You have <%=@user.plans.size %> for this month.</p><br>
-<p>On <%=@user.plans.mode_of_transport.size %> modes of transport including</p><br>
-
-<%=@user.plans.mode_of_transport %> on <%=@user.plans.date %> to <%=@user.plan.destination %><br>
 
 <p><a href="plans/new">Click here to create a new plan</a></p>
 <p><a href="plans/delete">Click here to cancel(delete) one of your plans</a></p>
 <p><a href="plans/update">Click here to update one of your plans</a></p>
 
 <p><a href="/logout">Log Out</a></p>
-<% end %>

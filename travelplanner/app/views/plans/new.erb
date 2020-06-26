@@ -1,21 +1,6 @@
 <p>Choose one of your plans or if you have no plans make a new one here.</p>
 
-<form action="/plans/<%= @plan.id %>" method="POST">
-<h3>Your Plan Details</h3>
-<% @plans.each do |plan| %>
-  <input type="checkbox" name="user[plan_ids][]" id="<%= plan.id %>" value="<%= plan.id %>" <%='checked' if @user.plans.include?(plan) %>><%= plan.plan_id %></input><br>
-<% end %>
-<br>
-
-<h3>Make a New Plan</h3>
-<label>Plan Number: </label>
-<input type="text" name="plan[plan_id]" id="plan_id"></input>
-<br><br>
-<h3>Existing Plans</h3>
-<% @plans.each do |plan| %>
-  <input type="checkbox" name="user[plan_ids][]" id="<%= plan.id %>" value="<%= plan.id %>"><%= plan.name %><br>
-<% end %>
-<br>
+<form action="/plans" method="POST">
 
 <h3>New Plan</h3>
 <label>Give us a number to identify your plan: </label>

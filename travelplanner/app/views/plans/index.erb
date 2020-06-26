@@ -1,0 +1,5 @@
+<h3>Your Plan Details</h3>
+<% @plans.each do |plan| %>
+  <input type="checkbox" name="user[plan_ids][]" id="<%= plan.id %>" value="<%= plan.id %>" <%='checked' if @user.plans.include?(plan) %>><%= plan.plan_id %></input><br>
+<% end %>
+<br>
