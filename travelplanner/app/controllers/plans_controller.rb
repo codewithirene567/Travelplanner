@@ -13,23 +13,12 @@ class PlansController < ApplicationController
     end
 
     post '/plans' do #creates a new travel plan and posts it so they can see it
-   @plan = Plan.create(name: params[:name],
-   destination: params[:destination], mode_of_transport: params[:mode_of_transport],
-   date: params[:date])
-#is this formatted correctly logic wise in the if statement
-    if !params[:username] == "" || params[:password] == ""
-#is this part necessary to have?
-      @plan.user = User.create(name: params[:name],
-      destination: params[:destination], mode_of_transport: params[:mode_of_transport],
-     date: params[:date])
+    #if you can't see it usually  wasn't created correctly
+   @plan = Plan.create(name: params[:plan][:name],
+   destination: params[:plan][:destination], mode_of_transport: params[:plan][:mode_of_transport],
+   date: params[:plan][:date])
 
-    #else
-      #redirect "/failure"
-      #redirect_if_not_logged_in
-      #if !Plans.valid_params?(params)
-      #  redirect to /plans/new
-      #  current_user.
-    end
+      @plan.user = current_user
 
     @plan.save
     redirect to "/plans/#{@plan.id}"
@@ -47,22 +36,17 @@ class PlansController < ApplicationController
     #end
 #read
     get "/plans/:id" do
-      #@user = User.new
+      #check_if_user_logged_in
       @plan = Plan.find(params[:id])
-
-      erb :'/users/show'
+#the only thing that can get sent into find is an id
+      erb :'/plans/show'
     end
     #end
 #update
-  #  get "/plans/:id/edit" do
-  #    @plans = Plan.find(params[:id])
-  #    erb :'/plans/edit'
-  #  end
-
-  #  get "/plans/:id" do
-  #  @plan = Plan.find(params[:id])
-  #  erb :'/plans/account'
-#  end
+    get "/plans/:id/edit" do
+      @plans = Plan.find(params[:id])
+      erb :'/plans/edit'
+    end
 
   #  patch "/plans/:id" do
   #    @plan = Plan.find(params[:id])

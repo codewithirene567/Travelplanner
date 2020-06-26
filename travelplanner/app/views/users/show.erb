@@ -1,12 +1,16 @@
-<h1>Here are all your plans</h1>
+<h1>Here are all your plans!</h1>
+#show one user, instance varaibale needs to be current_user or @user
+current_user.plans.size
+#show only one user's plans
+#you could iterate though their plans
+#@plan should not be here
 
-<%#=binding.pry%>
-<h1> Okay <%= current_user.username %>, here are your current plans on the dashboard</h1>
+<h2> Okay <%= current_user.username %>, here are your current plans on the dashboard</h2>
 
-<p>You have <%= @plan.name %> for this month.</p><br>
-<p>On <%= @plan.mode_of_transport %> modes of transport including</p><br>
+<p>You have <%= @plan.name.size %> trips for this month.</p><br>
+<p>On <%= @plan.mode_of_transport.size %> modes of transport. You'll get there by riding a(n)</p><br>
 
-<%= @plan.mode_of_transport %> on <%= @plan.date %> to <%= @plan.destination %><br>
+<%= @plan.mode_of_transport %> on <%= @plan.date %> to <%= @plan.destination %>.<br>
 <%#keep it singular, if you are trying to get an attribute from the table, then you should use a method
 #that can be called on the singlular object%>
 <h1> Additional account options</h1>

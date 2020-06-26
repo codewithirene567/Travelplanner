@@ -1,0 +1,13 @@
+<h1>Here are you details for the plan you made!</h1>
+
+<h1> Okay <%= current_user.username %>, here are your current plans on the dashboard</h1>
+
+<%=@plan.mode_of_transport %> on <%=@plan.date %> to <%=@plan.destination %><br>
+<%#keep it singular, if you are trying to get an attribute from the table, then you should use a method
+#that can be called on the singlular object%>
+<h1> Now here are all your account options</h1>
+<p><a href="/plans/new">Click here to create a new plan</a></p>
+<p><a href="/plans/<%=@plan.id%>/delete">Click here to cancel(delete) one of your plans</a></p>
+<p><a href="/plans/<%=@plan.id%>/edit">Click here to update one of your plans</a></p>
+
+<p><a href="/logout">Log Out</a></p>
