@@ -43,7 +43,7 @@ class UsersController < ApplicationController
 
     get '/login' do
       @user = User.find_by(id: params[:id])
-      if !is_logged_in?
+      if !logged_in?
         erb :"/users/login"
       else
         redirect "/users/#{current_user.id}"
@@ -68,7 +68,7 @@ class UsersController < ApplicationController
 get "/user/:id" do
   erb :'/users/show'
 end
-  #  get "/account" do
+  #  get "/user/show" do
   #    @user = User.find(params[:id])
   #    erb :'/plans/account'
   #  end

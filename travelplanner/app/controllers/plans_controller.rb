@@ -24,16 +24,6 @@ class PlansController < ApplicationController
     redirect to "/plans/#{@plan.id}"
   end
 
-    #if !params["plan"]["plan_id"].empty?
-
-      #doing 2 diffferent actions in one route, you are creating and signing up a person
-      #but you are also creating a plan
-      #both of those created actions need to have checks to make sure they were filled in correctly
-      #suggested to move the following 3 lines into the plan class
-      #@user.plans << Plan.create(plan_id: params["plan"]["plan_id"],
-      #destination: params["destination"], mode_of_transport: params["mode_of_transport"],
-      #date: params["date"], user_id: @user.id)
-    #end
 #read
     get "/plans/:id" do
       #check_if_user_logged_in
