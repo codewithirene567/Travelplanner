@@ -41,23 +41,23 @@ class UsersController < ApplicationController
 
   #  end
 
-    get '/users/login' do
+    get '/login' do
       @user = User.find_by(id: params[:id])
-      if @user
-        erb :"/plans/show"
+      #if @user = session[:user_id]
+        erb :"/users/login"
 
-      else
-        redirect '/'
+    #  else
+    #    redirect '/'
       end
-    end
+    
 
     post "/users/login" do
   #we want to find the user based on their paramas
      if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
      redirect to "/users/#{@user.id}"
-      else
-      redirect to "/failure"
+      #else
+    #  redirect to "/failure"
     end
     end
 
