@@ -23,4 +23,18 @@ class ApplicationController < Sinatra::Base
     end
   end
 
+
+  def redirect_if_logged_out(session)
+    if !logged_in?(session)
+      redirect '/'
+    end
+  end
+
+  def redirect_if_logged_in(session)
+    if logged_in?(session)
+      redirect '/users/show'
+    end
+  end
+
+
 end
