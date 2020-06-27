@@ -50,8 +50,13 @@ get "/failure" do
   end
 
     delete "/plans/:id" do
-      Plan.destroy(params[:id])
-      redirect to "/users/show"
-    end
+      plan = Plan.find_by(name: params[:plan][:name], destination: params[:plan][:destination], mode_of_transport:
+      params[:plan][:mode_of_transport], date: params[:plan][:date], user_id: params[:plan][:user_id])
+      plan.delete
+      redirect '/users/show'
+      end
+      #Plan.destroy(params[:id])
+      #redirect to "/users/show"
+    #end
 
 end

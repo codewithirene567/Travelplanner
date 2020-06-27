@@ -10,8 +10,15 @@ class UsersController < ApplicationController
             redirect '/failure'
           else
             @user = User.create(name: params[:name], username: params[:username], password: params[:password])
-              session[:user_id] = @user.id #this line lets them logged in
+            @user.save
+            session[:user_id] = @user.id #this line lets them logged in
             redirect '/plans/new'
+            #redirect '/users/show'
+          end
+
+          get '/users/show' do
+          #    @user = User.find(params[:id])
+            erb :'/users/show'
           end
 
         #  if @user.save
@@ -28,6 +35,7 @@ class UsersController < ApplicationController
       #  redirect "/users/#{current_user.id}"
       #else
       #redirect_if_logged_in(session)
+
         erb :'/users/login'
       #end
     end
@@ -35,13 +43,14 @@ class UsersController < ApplicationController
 
     post '/users/login' do
   #we want to find the user based on their paramas
+  @user = User.find_by(username: params[:username])
      if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
      #redirect to "/users/#{@user.id}"
      erb :'/users/show'
      else
        "Password incorrect, try again!"
-       redirect '/login'
+       redirect '/failure'
      #redirect "/users/#{current_user.id}"
       #else
     #  redirect to "/failure"
@@ -52,10 +61,7 @@ class UsersController < ApplicationController
 get "/user/:id" do
   erb :'/users/show'
 end
-  #  get "/user/show" do
-  #    @user = User.find(params[:id])
-  #    erb :'/plans/account'
-  #  end
+
 #update
   #  get "/users/:id/edit" do
   #    @user = User.find(params[:id])

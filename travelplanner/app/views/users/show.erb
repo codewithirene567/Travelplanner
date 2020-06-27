@@ -1,4 +1,4 @@
-<h1>Here are all your plans<%= current_user.username %>!</h1>
+<h1>Here are all your plans <%= current_user.username %>!</h1>
 <%#show one user, instance varaibale needs to be current_user or @user
 current_user.plans.size
 #show only one user's plans
@@ -9,10 +9,10 @@ current_user.plans.size
 <h2>Details:</h2>
 <ul>
   <%current_user.plans.each do |plan|%>
-  <li><%=plan.name%></li>
-  <li><%=plan.mode_of_transport%></li>
-  <li><%=plan.date %></li>
-  <li><%=plan.destination %></li>
+  <li>Your trip is called <%=plan.name%>.</li>
+  <li>Your way to get there is by taking a comfortable <%=plan.mode_of_transport%> ride.</li>
+  <li>The day you are leaving is <%=plan.date %>.</li>
+  <li>Enjoy your time in <%=plan.destination %>!</li>
 
   <%end%>
 </ul><br>
