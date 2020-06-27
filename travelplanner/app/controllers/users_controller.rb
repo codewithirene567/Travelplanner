@@ -5,16 +5,17 @@ class UsersController < ApplicationController
     end
 
     post "/signup" do
-
-      if params[:username] == "" || params[:password] == ""
-            redirect '/failure'
-          else
-            @user = User.create(name: params[:name], username: params[:username], password: params[:password])
-            @user.save
-            session[:user_id] = @user.id #this line lets them logged in
-            redirect '/plans/new'
-            #redirect '/users/show'
-          end
+    if logged_in?
+      redirect to '/plans'
+    elsif params[:username] == "" || params[:password] == ""
+          redirect '/failure'
+    else
+      @user = User.create(name: params[:name], username: params[:username], password: params[:password])
+      @user.save
+      session[:user_id] = @user.id #this line lets them logged in
+      redirect '/plans'
+      end
+    end
 
           get '/users/show' do
           #    @user = User.find(params[:id])
@@ -27,38 +28,33 @@ class UsersController < ApplicationController
         #  else
         #    redirect '/failure'
         #  end
-       end
+
 
     get '/login' do
-      #@user = User.find_by(id: params[:id])
-      #if logged_in?
-      #  redirect "/users/#{current_user.id}"
-      #else
-      #redirect_if_logged_in(session)
-
+       if logged_in?
+         redirect '/plans'
+       else
         erb :'/users/login'
-      #end
+      end
     end
 
 
     post '/users/login' do
   #we want to find the user based on their paramas
-  @user = User.find_by(username: params[:username])
-     if @user && @user.authenticate(params[:password])
+  @user = User.find_by(username: params[:username]) #find the user by username
+     if @user && @user.authenticate(params[:password]) #check if password matches
       session[:user_id] = @user.id
      #redirect to "/users/#{@user.id}"
      erb :'/users/show'
      else
        redirect '/wrongpassword'
-     #redirect "/users/#{current_user.id}"
-      #else
-    #  redirect to "/failure"
-    end
+     end
     end
 
     get '/wrongpassword' do
       erb :'/wrongpassword'
     end
+
     get "/user/:id" do
       erb :'/users/show'
     end
@@ -84,17 +80,13 @@ class UsersController < ApplicationController
 
 
     get "/logout" do
-      session.clear
-      redirect "/"
+      if logged_in?
+        session.clear
+        redirect "/login"
+      else
+        redirect '/'
+      end
     end
-#destroy
-
-
-
-  #  delete "/users/:id" do
-  #    User.destroy(params[:id])
-  #    redirect to "/plans/account"
-  #  end
 
 end
 #get '/account' do
