@@ -2,12 +2,15 @@
 
 <h2> Okay <%= current_user.username %>, you will be taking a(n) </h2>
 
-<%=@plan.mode_of_transport %> on <%=@plan.date %> to <%=@plan.destination %>.<br>
-<%#keep it singular, if you are trying to get an attribute from the table, then you should use a method
-#that can be called on the singlular object%>
-<h2> Now here are all your plan options</h2>
-<p><a href="/plans/new">Click here to create a new plan</a></p>
-<p><a href="/plans/<%=@plan.id%>/delete">Click here to cancel one of your plans</a></p>
-<p><a href="/plans/<%=@plan.id%>/edit">Click here to update one of your plans</a></p>
-
+<li>Your trip is called <%=@plan.name%>.</li>
+<li>Your way to get there is by taking a comfortable <%=@plan.mode_of_transport%> ride.</li>
+<li>The day you are leaving is <%=@plan.date %>.</li>
+<li>Enjoy your time in <%=@plan.destination %>!</li>
+<form action="/plans/<%= @plan.id %>" method="post">
+  <div style="margin:0;padding:0">
+    <input name="_method" type="hidden" value="delete" />
+    <input type="submit" value="delete this plan" />
+  </div>
+</form>
+<p><a href="/plans/<%= @plan.id %>/edit">Click here to update one of your plans</a></p>
 <p><a href="/logout">Log Out</a></p>

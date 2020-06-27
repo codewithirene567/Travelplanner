@@ -12,16 +12,18 @@ class PlansController < ApplicationController
     #if you can't see it usually  wasn't created correctly
     if params[:plan][:name] == "" || params[:plan][:destination] == "" || params[:plan][:mode_of_transport] == "" || params[:plan][:date] == ""
       redirect to '/plans/new'
+
     else
-      user = current_user
+      #user = current_user
    @plan = Plan.create(name: params[:plan][:name],
    destination: params[:plan][:destination], mode_of_transport: params[:plan][:mode_of_transport],
-   date: params[:plan][:date])
+   date: params[:plan][:date], user_id: current_user.id)
 
       #@plan.user = current_user
 
-    #@plan.save
-    redirect to "/plans/#{@plan.id}"
+    @plan.save!
+    redirect to "/plans"
+    #redirect to "/plans/#{@plan.id}"
     end
   end
 
@@ -31,7 +33,10 @@ class PlansController < ApplicationController
       if logged_in?
          @user = current_user
          @plans = @user.plans.all
-        erb :'/plans/index'
+        #erb :'/plans/index'
+        #binding.pry
+          erb :'users/show'
+          #erb :'/plans/show'
       else
         redirect to '/login'
       end
@@ -76,7 +81,7 @@ class PlansController < ApplicationController
       @plan.user_id = current_user.id
       @plan.save
       #@plan.update(params[:user][:plan])
-      redirect to "/plan/#{@plan.id}"
+      redirect to "/plans/#{@plan.id}"
       end
      end
 
@@ -85,7 +90,8 @@ get "/failure" do
     erb :'/failure'
   end
 
-    delete '/plans/:id/delete' do
+    #delete '/plans/delete' do
+        delete '/plans/:id' do
       if logged_in?
        @plan = Plan.find_by(params[:id])
         if @plan.user_id == session[:user_id]

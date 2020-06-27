@@ -18,7 +18,8 @@ class UsersController < ApplicationController
     end
 
           get '/users/show' do
-          #    @user = User.find(params[:id])
+            @user = current_user
+            @plans = @user.plans.all          #    @user = User.find(params[:id])
             erb :'/users/show'
           end
 
@@ -45,7 +46,9 @@ class UsersController < ApplicationController
      if @user && @user.authenticate(params[:password]) #check if password matches
       session[:user_id] = @user.id
      #redirect to "/users/#{@user.id}"
-     erb :'/users/show'
+     #redirect '/plans'
+     @plans = @user.plans.all
+     erb :"/users/show"
      else
        redirect '/wrongpassword'
      end
