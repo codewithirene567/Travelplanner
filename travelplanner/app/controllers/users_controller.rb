@@ -50,14 +50,16 @@ class UsersController < ApplicationController
      erb :'/users/show'
      else
        "Password incorrect, try again!"
-       redirect '/failure'
+       redirect '/wrongpassword'
      #redirect "/users/#{current_user.id}"
       #else
     #  redirect to "/failure"
     end
     end
 
-
+get '/wrongpassword' do
+  erb :'/wrongpassword'
+end
 get "/user/:id" do
   erb :'/users/show'
 end
