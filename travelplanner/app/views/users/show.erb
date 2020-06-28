@@ -4,25 +4,21 @@
 <h2>Details:</h2>
 <ul>
 <%@plans.each do |plan|%>
-  <li>Your trip is called <%=plan.name%>.</li>
-  <li>Your way to get there is by taking a comfortable <%=plan.mode_of_transport%> ride.</li>
-  <li>The day you are leaving is <%=plan.date %>.</li>
-  <li>Enjoy your time in <%=plan.destination %>!</li>
+  <li>Your trip is called <%=plan.name%>.</li><br>
+  <li>Your way to get there is by taking a comfortable <%=plan.mode_of_transport%> ride.</li><br>
+  <li>The lucky day you are leaving is <%=plan.date %>.</li><br>
+  <li>Enjoy your time in <%=plan.destination %>!</li><br>
+  <h2> Additional account options for this plan</h2>
   <form action="/plans/<%= plan.id %>" method="post">
     <div style="margin:0;padding:0">
       <input name="_method" type="hidden" value="delete" />
-      <input type="submit" value="delete this plan" />
+      <input type="submit" value="Click here to delete this plan" />
     </div>
-  </form>
-  <p><a href="/plans/<%= plan.id %>/edit">Click here to update one of your plans</a></p>
+  </form><br>
+  <p><a href="/plans/<%= plan.id %>/edit">Click here to update this plan</a></p>
 <% end %>
-</ul><br>
+</ul>
 
-
-<h1> Additional account options</h1>
 <p><a href="/plans/new">Click here to create a new plan</a></p>
-
-
-
 
 <p><a href="/logout">Log Out</a></p>

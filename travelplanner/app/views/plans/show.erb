@@ -1,16 +1,17 @@
-<h1>Here are you details for the plan you made!</h1>
+<h1>Here are your details for the plan you made!</h1>
 
 <h2> Okay <%= current_user.username %>, you will be taking a(n) </h2>
 
-<li>Your trip is called <%=@plan.name%>.</li>
-<li>Your way to get there is by taking a comfortable <%=@plan.mode_of_transport%> ride.</li>
-<li>The day you are leaving is <%=@plan.date %>.</li>
-<li>Enjoy your time in <%=@plan.destination %>!</li>
+<li>Your trip is called <%=@plan.name%>.</li><br>
+<li>Your way to get there is by taking a comfortable <%=@plan.mode_of_transport%> ride.</li><br>
+<li>The lucky day you are leaving is <%=@plan.date %>.</li><br>
+<li>Enjoy your time in <%=@plan.destination %>!</li><br>
+<h2> Additional account options</h2>
 <form action="/plans/<%= @plan.id %>" method="post">
   <div style="margin:0;padding:0">
     <input name="_method" type="hidden" value="delete" />
-    <input type="submit" value="delete this plan" />
-  </div>
+    <input type="submit" value="Click here to delete this plan" />
+  </div><br>
 </form>
 <p><a href="/plans/<%= @plan.id %>/edit">Click here to update one of your plans</a></p>
 <p><a href="/logout">Log Out</a></p>
