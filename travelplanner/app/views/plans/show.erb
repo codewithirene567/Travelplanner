@@ -1,4 +1,4 @@
-<h1>Here are your details for the plan you made!</h1>
+<h1>Here are your details for the plan you updated!</h1>
 
 <h2> Okay <%= current_user.username %>, you will be taking a(n) </h2>
 
@@ -13,5 +13,8 @@
     <input type="submit" value="Click here to delete this plan" />
   </div><br>
 </form>
-<p><a href="/plans/<%= @plan.id %>/edit">Click here to update one of your plans</a></p>
+<p><a href="/plans/<%= @plan.id %>/edit">Click here to update your plan again</a></p>
+<p><a href="/plans/new">Click here to create a new plan</a></p>
+<p><a href="/users/show">Click here to see all your plans again</a></p>
 <p><a href="/logout">Log Out</a></p>
+<img src="https://www.libertytravel.com/sites/default/files/styles/full_size/public/New-Zealand_hero.jpg?itok=spg0eXLa" width="800px" height="450px">
