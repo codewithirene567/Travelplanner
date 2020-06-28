@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   post "/signup" do
    @user = User.create(name: params[:name], username: params[:username], password: params[:password])
-    if @user.save
+    if @user.save #if everything goes right with the validations and it can save it
     session[:user_id] = @user.id
     redirect '/users/show'
     else
