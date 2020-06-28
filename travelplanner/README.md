@@ -7,3 +7,6 @@ Installation: You can install it by
 3) Run bundle install in the console
 4) Run shotgun
 5) Enter the given url terminal provided by the shotgun server
+
+Link to License:
+This app is available for reuse as an open source under the MIT License found at https://opensource.org/licenses/MIT.
