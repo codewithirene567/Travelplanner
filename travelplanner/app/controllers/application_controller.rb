@@ -6,8 +6,8 @@ class ApplicationController < Sinatra::Base
     set :public_folder, 'public'
     set :views, 'app/views'
     enable :sessions
-    set :session_secret, "to_be_replaced"#switch back to this after local ENV['SESSION_SECRET']
-  end
+    set :session_secret, ENV['SECRET_PHRASE'] #switch back to this after local ENV['SESSION_SECRET']
+  end #this was call your password from the env file, so that users cannot see it
 
   get '/' do
     erb :'/users/index'

@@ -1,101 +1,109 @@
+
 class UsersController < ApplicationController
 #new
-    get "/signup" do
-     erb :'/users/signup'
-    end
+  get "/signup" do
+   erb :'/users/signup'
+  end
 
-    post "/signup" do
-    if logged_in?
-      redirect to '/plans'
-    elsif params[:username] == "" || params[:password] == ""
-          redirect '/failure'
+  post "/signup" do
+   @user = User.create(name: params[:name], username: params[:username], password: params[:password])
+    if @user.save
+    session[:user_id] = @user.id
+    redirect '/users/show'
     else
-      @user = User.create(name: params[:name], username: params[:username], password: params[:password])
-      @user.save
-      session[:user_id] = @user.id #this line lets them logged in
-      redirect '/plans'
-      end
+      redirect '/failure'
+
+  #if logged_in?
+  #  redirect to '/plans'
+  #elsif params[:username] == "" || params[:password] == ""
+  #      redirect '/failure'
+  #else
+  #  @user = User.create(name: params[:name], username: params[:username], password: params[:password])
+  #  @user.save
+    #session[:user_id] = @user.id #this line lets them logged in
+  #  redirect '/plans'
     end
+  end
 
-          get '/users/show' do
-            @user = current_user
-            @plans = @user.plans.all          #    @user = User.find(params[:id])
-            erb :'/users/show'
-          end
+        get '/users/show' do
+          @user = current_user
+          @plans = @user.plans.all          #    @user = User.find(params[:id])
+          erb :'/users/show'
+        end
 
-        #  if @user.save
-        #    session[:user_id] = user.id
-        #    redirect '/users/show'
-        #  else
-        #    redirect '/failure'
-        #  end
-
-
-    get '/login' do
-       if logged_in?
-         redirect '/plans'
-       else
-        erb :'/users/login'
-      end
-    end
+      #  if @user.save
+      #    session[:user_id] = user.id
+      #    redirect '/users/show'
+      #  else
+      #    redirect '/failure'
+      #  end
 
 
-    post '/users/login' do
-  #we want to find the user based on their paramas
-  @user = User.find_by(username: params[:username]) #find the user by username
-     if @user && @user.authenticate(params[:password]) #check if password matches
-      session[:user_id] = @user.id
-     #redirect to "/users/#{@user.id}"
-     #redirect '/plans'
-     @plans = @user.plans.all
-     erb :"/users/show"
+  get '/login' do
+     if logged_in?
+       redirect '/plans'
      else
-       redirect '/wrongpassword'
-     end
+      erb :'/users/login'
     end
+  end
 
-    get '/wrongpassword' do
-      erb :'/wrongpassword'
-    end
 
-    get "/user/:id" do
-      erb :'/users/show'
-    end
+  post '/users/login' do
+#we want to find the user based on their paramas
+@user = User.find_by(username: params[:username]) #find the user by username
+   if @user && @user.authenticate(params[:password]) #check if password matches
+    session[:user_id] = @user.id
+   #redirect to "/users/#{@user.id}"
+   #redirect '/plans'
+   @plans = @user.plans.all
+   erb :"/users/show"
+   else
+     redirect '/wrongpassword'
+   end
+  end
+
+  get '/wrongpassword' do
+    erb :'/wrongpassword'
+  end
+
+  get "/user/:id" do
+    erb :'/users/show'
+  end
 
 #update
-  #  get "/users/:id/edit" do
-  #    @user = User.find(params[:id])
-  #    @plans = Plan.all
-  #    erb :'/users/edit'
-  #  end
+#  get "/users/:id/edit" do
+#    @user = User.find(params[:id])
+#    @plans = Plan.all
+#    erb :'/users/edit'
+#  end
 
-  #  patch "/users/:id" do
-  #    @user = User.find(params[:id])
-  #    @user.update(params[:person])
+#  patch "/users/:id" do
+#    @user = User.find(params[:id])
+#    @user.update(params[:person])
 
-  #    if !params["plan"]["plan_id"].empty?
-  #      @user.plans << Plan.create(plan_id: params["plan"]["plan_id"])
-  #    end
+#    if !params["plan"]["plan_id"].empty?
+#      @user.plans << Plan.create(plan_id: params["plan"]["plan_id"])
+#    end
 
-  #    redirect "/users/#{@user.id}"
-  #  end
+#    redirect "/users/#{@user.id}"
+#  end
 
 
 
-    get "/logout" do
-      if logged_in?
-        session.clear
-        redirect "/login"
-      else
-        redirect '/'
-      end
+  get "/logout" do
+    if logged_in?
+      session.clear
+      redirect "/login"
+    else
+      redirect '/'
     end
+  end
 
 end
 #get '/account' do
-  #  @user = User.find(session[:user_id])
+#  @user = User.find(session[:user_id])
 #    erb :'plans/account'
-  #end
+#end
 #  @user = User.create(params[:user])
 #if there is a user_id then thery are logged in
 #if @user!=nil && @user.password
