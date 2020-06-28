@@ -1,6 +1,6 @@
 
 class UsersController < ApplicationController
-#new
+
   get "/signup" do
    erb :'/users/signup'
   end
@@ -25,19 +25,11 @@ class UsersController < ApplicationController
     end
   end
 
-        get '/users/show' do
-          @user = current_user
-          @plans = @user.plans.all          #    @user = User.find(params[:id])
-          erb :'/users/show'
-        end
-
-      #  if @user.save
-      #    session[:user_id] = user.id
-      #    redirect '/users/show'
-      #  else
-      #    redirect '/failure'
-      #  end
-
+  get '/users/show' do
+    @user = current_user
+    @plans = @user.plans.all
+    erb :'/users/show'
+  end
 
   get '/login' do
      if logged_in?
@@ -53,8 +45,6 @@ class UsersController < ApplicationController
 @user = User.find_by(username: params[:username]) #find the user by username
    if @user && @user.authenticate(params[:password]) #check if password matches
     session[:user_id] = @user.id
-   #redirect to "/users/#{@user.id}"
-   #redirect '/plans'
    @plans = @user.plans.all
    erb :"/users/show"
    else
@@ -70,26 +60,6 @@ class UsersController < ApplicationController
     erb :'/users/show'
   end
 
-#update
-#  get "/users/:id/edit" do
-#    @user = User.find(params[:id])
-#    @plans = Plan.all
-#    erb :'/users/edit'
-#  end
-
-#  patch "/users/:id" do
-#    @user = User.find(params[:id])
-#    @user.update(params[:person])
-
-#    if !params["plan"]["plan_id"].empty?
-#      @user.plans << Plan.create(plan_id: params["plan"]["plan_id"])
-#    end
-
-#    redirect "/users/#{@user.id}"
-#  end
-
-
-
   get "/logout" do
     if logged_in?
       session.clear
@@ -100,26 +70,3 @@ class UsersController < ApplicationController
   end
 
 end
-#get '/account' do
-#  @user = User.find(session[:user_id])
-#    erb :'plans/account'
-#end
-#  @user = User.create(params[:user])
-#if there is a user_id then thery are logged in
-#if @user!=nil && @user.password
-#  session[:user_id] = @user.id
-#  redirect to '/account'
-#end
-#redirect "/account"
-#end
-#read
-#get "/login" do
-#  if !logged in?
-#    erb :'users/login'
-#  else
-#    redirect to '/'
-#  end
-#  end
-#    erb :'/users/login'
-
-#  end
