@@ -73,7 +73,7 @@ class PlansController < ApplicationController
       if params[:plan][:name] == "" || params[:plan][:destination] == "" || params[:plan][:mode_of_transport] == "" || params[:plan][:date] == ""
         redirect to "/plans/#{params[:id]}/edit"
       else
-      @plan = Plan.find_by_id(params[:id])
+      @plan = current_user.plans.find_by_id(params[:id])
       @plan.name = params[:plan][:name]
       @plan.destination = params[:plan][:destination]
       @plan.mode_of_transport = params[:plan][:mode_of_transport]
@@ -86,23 +86,19 @@ class PlansController < ApplicationController
      end
 
 
-get "/failure" do
-    erb :'/failure'
-  end
+    get "/failure" do
+        erb :'/failure'
+      end
 
     #delete '/plans/delete' do
-        delete '/plans/:id' do
+    delete '/plans/:id' do
       if logged_in?
-       @plan = Plan.find_by(params[:id])
-        if @plan.user_id == session[:user_id]
-         @plan.delete
-         redirect to '/plans'
-       end
+         @plan = current_user.plans.find_by(params[:id]) #find the plan and then if that plan has a user id which is equal to the session id then take it back to plans
+         @plan.destroy
+         redirect to "/plans"
      else
        redirect to '/login'
-      #, destination: params[:plan][:destination], mode_of_transport:
-      #params[:plan][:mode_of_transport], date: params[:plan][:date], user_id: params[:plan][:user_id])
-     end
+      end
     end
 
   end
