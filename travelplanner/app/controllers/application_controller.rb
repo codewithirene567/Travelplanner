@@ -16,6 +16,8 @@ class ApplicationController < Sinatra::Base
   helpers do
     def logged_in?
       !!session[:user_id]
+      #ensure we are getting a truthy value, turns it into it's opposite truthiness
+      #turning it into a truthy value rather than it's actual value
     end
 
     def current_user

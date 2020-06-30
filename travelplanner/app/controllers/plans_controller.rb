@@ -21,8 +21,8 @@ class PlansController < ApplicationController
 
       #@plan.user = current_user
 
-    @plan.save!
-    redirect to "/plans"
+    #@plan.save! #if for some reason the plan didn't save, then raise an error
+    redirect to "/plans" #taking us to a specific plan
     #redirect to "/plans/#{@plan.id}"
     end
   end
@@ -32,7 +32,7 @@ class PlansController < ApplicationController
     get "/plans" do
       if logged_in?
          @user = current_user
-         @plans = @user.plans.all
+         @plans = @user.plans
         #erb :'/plans/index'
         #binding.pry
           erb :'users/show'
@@ -42,16 +42,28 @@ class PlansController < ApplicationController
       end
     end
 
-    get "/plans/:id" do
-      if logged_in?
-          @plan = Plan.find_by_id(params[:id])#the only thing that can get sent into find is an id
-          if @plan.user_id == session[:user_id]
-          erb :'/plans/show'
-          elsif @plan.user_id != session[:user_id]
-            redirect '/plans'
-          end
-        else
-          redirect to '/plans'
+    #get "/plans/:id" do
+    #  if logged_in? #typically in get request params come from url and posts have it come from the form
+      #    @plan = Plan.find_by_id(params[:id])#the only thing that can get sent into find is an id
+      #    if @plan.user_id == session[:user_id]
+      #    erb :'/plans/show'
+      #    elsif @plan.user_id != session[:user_id]
+      #      redirect '/plans'
+      #    end
+      #  else
+      #    redirect to '/plans'
+      #  end
+      #end
+
+     get "/plans/:id" do
+        if !logged_in?  #these three lines could be turned into a helper method
+          redirect to '/login'
+        end
+        @plan = Plan.find_by_id(params[:id])#the only thing that can get sent into find is an id
+        if @plan.user_id == session[:user_id]
+        erb :'/plans/show'
+        elsif @plan.user_id != session[:user_id]
+          redirect '/plans'
         end
       end
     #end
@@ -73,12 +85,12 @@ class PlansController < ApplicationController
       if params[:plan][:name] == "" || params[:plan][:destination] == "" || params[:plan][:mode_of_transport] == "" || params[:plan][:date] == ""
         redirect to "/plans/#{params[:id]}/edit"
       else
-      @plan = current_user.plans.find_by_id(params[:id])
+      @plan = current_user.plans.find_by_id(params[:id])#found the plan be looking at the current user's plans
       @plan.name = params[:plan][:name]
       @plan.destination = params[:plan][:destination]
       @plan.mode_of_transport = params[:plan][:mode_of_transport]
       @plan.date = params[:plan][:date]
-      @plan.user_id = current_user.id
+      #@plan.user_id = current_user.id
       @plan.save
       #@plan.update(params[:user][:plan])
       redirect to "/plans/#{@plan.id}"
