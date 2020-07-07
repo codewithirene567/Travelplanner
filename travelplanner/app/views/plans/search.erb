@@ -1,11 +1,3 @@
-<h1>Here are all your plans <%= current_user.username %>!</h1>
-<strong>Search for a plan here </strong><br><br>
-<form action="/plans/search" method="get">
-<input type="text" name="search" />
-<input type="submit" value="submit" />
-</form><br>
-
-<h2>Details:</h2>
 <ul>
 <%@plans.each do |plan|%>
   <li>Your trip is called <%=plan.name%>.</li><br>
@@ -22,8 +14,3 @@
   <p><a href="/plans/<%= plan.id %>/edit">Click here to update the plan above</a></p>
 <% end %>
 </ul>
-<p><a href="/plans/new">Click here to create a new plan</a></p>
-
-<p><a href="/logout">Log Out</a></p>
-
-<img src="https://www.getours.com/media/1207/france-provence-lavender-field.jpg?center=0.5043478260869565,0.48753462603878117&mode=crop&width=1120&height=675&rnd=132291906710000000"width="700px" height="350px">

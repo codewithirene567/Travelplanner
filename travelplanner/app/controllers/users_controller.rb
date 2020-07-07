@@ -41,15 +41,15 @@ class UsersController < ApplicationController
 
 
   post '/users/login' do
-#we want to find the user based on their paramas
-@user = User.find_by(username: params[:username]) #find the user by username
-   if @user && @user.authenticate(params[:password]) #check if password matches
-    session[:user_id] = @user.id
-   @plans = @user.plans.all
-   erb :"/users/show"
-   else
-     redirect '/wrongpassword'
-   end
+    #we want to find the user based on their paramas
+    @user = User.find_by(username: params[:username]) #find the user by username
+      if @user && @user.authenticate(params[:password]) #check if password matches
+        session[:user_id] = @user.id
+      @plans = @user.plans.all
+      erb :"/users/show"
+      else
+        redirect '/wrongpassword'
+      end
   end
 
   get '/wrongpassword' do

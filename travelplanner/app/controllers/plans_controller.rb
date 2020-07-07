@@ -1,10 +1,10 @@
 class PlansController < ApplicationController
 #create
-   get "/plans/new" do
-       if logged_in?
+   get "/plans/new" do #this is the create action which represents what happens whenever somebody makes a new plan
+       if logged_in? #if they are logged in, then show them the erb plans/new page
         erb :'/plans/new'
       else
-        redirect to '/login'
+        redirect to '/login' #otherwise make them login
       end
     end
 
@@ -12,13 +12,13 @@ class PlansController < ApplicationController
     #if you can't see it usually  wasn't created correctly
     if params[:plan][:name] == "" || params[:plan][:destination] == "" || params[:plan][:mode_of_transport] == "" || params[:plan][:date] == ""
       redirect to '/plans/new'
-
+    #this makes sure that the fields are not blank, otherwise it will take them to the new page to make the plan form be filled out correctly
     else
       #user = current_user
    @plan = Plan.create(name: params[:plan][:name],
    destination: params[:plan][:destination], mode_of_transport: params[:plan][:mode_of_transport],
    date: params[:plan][:date], user_id: current_user.id)
-
+#this gives each of the plans their attributes
       #@plan.user = current_user
 
     #@plan.save! #if for some reason the plan didn't save, then raise an error
@@ -40,6 +40,19 @@ class PlansController < ApplicationController
       else
         redirect to '/login'
       end
+    end
+
+    get "/plans/search" do
+      #load a view that will display the search results
+      #redirect_if_logged_out(session)
+      if !logged_in?
+        redirect to '/login'
+      end
+      @plans = Plan.all
+      if params[:search]
+        @plans = current_user.plans.where('destination = ?', params[:search])
+      end
+      erb :'/plans/search'
     end
 
     #get "/plans/:id" do
