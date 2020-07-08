@@ -11,18 +11,7 @@ class UsersController < ApplicationController
     session[:user_id] = @user.id
     redirect '/users/show'
     else
-      #redirect '/failure'
       redirect '/signup'
-
-  #if logged_in?
-  #  redirect to '/plans'
-  #elsif params[:username] == "" || params[:password] == ""
-  #      redirect '/failure'
-  #else
-  #  @user = User.create(name: params[:name], username: params[:username], password: params[:password])
-  #  @user.save
-    #session[:user_id] = @user.id #this line lets them logged in
-  #  redirect '/plans'
     end
   end
 
@@ -42,7 +31,6 @@ class UsersController < ApplicationController
 
 
   post '/users/login' do
-    #we want to find the user based on their paramas
     @user = User.find_by(username: params[:username]) #find the user by username
       if @user && @user.authenticate(params[:password]) #check if password matches
         session[:user_id] = @user.id
