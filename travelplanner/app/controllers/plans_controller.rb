@@ -1,5 +1,5 @@
 class PlansController < ApplicationController
-  
+
    get "/plans/new" do
        if logged_in?
         erb :'/plans/new'
@@ -68,14 +68,15 @@ class PlansController < ApplicationController
     patch "/plans/:id" do
       if params[:plan][:name] == "" || params[:plan][:destination] == "" || params[:plan][:mode_of_transport] == "" || params[:plan][:date] == ""
         redirect to "/plans/#{params[:id]}/edit"
-      else
-      @plan = current_user.plans.find_by_id(params[:id])
+      elsif @plan = current_user.plans.find_by_id(params[:id])
       @plan.name = params[:plan][:name]
       @plan.destination = params[:plan][:destination]
       @plan.mode_of_transport = params[:plan][:mode_of_transport]
       @plan.date = params[:plan][:date]
       @plan.save
       redirect to "/plans/#{@plan.id}"
+      else
+        redirect to "/plans"
       end
      end
 
@@ -87,8 +88,8 @@ class PlansController < ApplicationController
    
     delete '/plans/:id' do
       if logged_in?
-         @plan = current_user.plans.find_by(params[:id])
-         @plan.destroy
+         @plan = current_user.plans.find_by_id(params[:id])
+         @plan.destroy if @plan
          redirect to "/plans"
      else
        redirect to '/login'

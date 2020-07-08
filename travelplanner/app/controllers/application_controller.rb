@@ -27,14 +27,14 @@ class ApplicationController < Sinatra::Base
 
 private
 
-  def redirect_if_logged_out(session) 
-    if !logged_in?(session)
+  def redirect_if_logged_out
+    if !logged_in?
       redirect '/'
     end
   end
 
-  def redirect_if_logged_in(session)
-    if logged_in?(session)
+  def redirect_if_logged_in
+    if logged_in?
       redirect '/users/show'
     end
   end

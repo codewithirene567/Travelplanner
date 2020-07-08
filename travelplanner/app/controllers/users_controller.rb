@@ -46,8 +46,8 @@ class UsersController < ApplicationController
     @user = User.find_by(username: params[:username]) #find the user by username
       if @user && @user.authenticate(params[:password]) #check if password matches
         session[:user_id] = @user.id
-      @plans = @user.plans.all
-      erb :"/users/show"
+      @plans = @user.plans
+      redirect "/users/show"
       else
         redirect '/wrongpassword'
       end
@@ -57,9 +57,6 @@ class UsersController < ApplicationController
     erb :'/wrongpassword'
   end
 
-  get "/user/:id" do
-    erb :'/users/show'
-  end
 
   get "/logout" do
     if logged_in?
