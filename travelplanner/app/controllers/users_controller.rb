@@ -31,8 +31,8 @@ class UsersController < ApplicationController
 
 
   post '/users/login' do
-    @user = User.find_by(username: params[:username]) #find the user by username
-      if @user && @user.authenticate(params[:password]) #check if password matches
+    @user = User.find_by(username: params[:username])
+      if @user && @user.authenticate(params[:password])
         session[:user_id] = @user.id
       @plans = @user.plans
       redirect "/users/show"
